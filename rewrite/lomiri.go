@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+        "encoding/json"
 
 	"github.com/karmanyaahm/up_rewrite/utils"
 )
@@ -35,11 +36,13 @@ func (l Lomiri) Req(body []byte, req http.Request) (*http.Request, error) {
 	token := req.URL.Query().Get("token")
 	appid := req.URL.Query().Get("appid")
 
+	var payload map[string]interface{}
+        err := json.Unmarshal(body, &payload)
 	newBody, err := utils.EncodeJSON(lomiriSend{
 		Token:    token,
 		AppId:    appid,
 		ExpireOn: time.Now().Add(7 * 24 * time.Hour).Format(time.RFC3339),
-		Data:     string(body),
+		Data:     paylod,
 	})
 
 	if err != nil {
