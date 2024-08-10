@@ -42,7 +42,7 @@ func (l Lomiri) Req(body []byte, req http.Request) (*http.Request, error) {
 		Token:    token,
 		AppId:    appid,
 		ExpireOn: time.Now().Add(7 * 24 * time.Hour).Format(time.RFC3339),
-		Data:     paylod,
+		Data:     payload,
 	})
 
 	if err != nil {
